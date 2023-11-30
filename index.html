@@ -1,43 +1,93 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-        <style>
-            * {
-                font-family: 'Roboto', sans-serif;
-            }
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-            body {
-                width: 100vw;
-                height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            #countdown {
-                font-size: 200px;
-            }
-        </style>
-    </head>
-    <body>
+        .buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #countdown {
+            font-size: 200px;
+        }
+
+        .button {
+            font-size: 100px;
+        }
+    </style>
+</head>
+
+<audio id="music">
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<body>
+    <div>
         <div id="countdown"></div>
-        <script>
-            const countdown = document.getElementById('countdown')
-            const expected = new Date('Thu Nov 30 2023 17:00:00 GMT+0100 (Central European Standard Time)').getTime();
+        <div class="buttons">
+            <button onclick="musicToogle()">
+                <span id="button" class="button material-symbols-outlined" onclick>
+                    volume_up
+                </span>
+            </button>
+        </div>
+    </div>
+    <script>
+        const countdown = document.getElementById('countdown')
+        const expected = new Date('Thu Nov 30 2023 17:00:00 GMT+0100 (Central European Standard Time)').getTime();
 
-            setInterval(()=>{
-                const current = new Date().getTime();
-                const diff = expected - current
-                const hours = Math.floor(diff / 1000 / 60 / 60);
-                const mins = Math.floor(diff / 1000 / 60) - (hours * 60);
-                const seconds = Math.floor(diff / 1000) - (hours * 60 * 60 + mins * 60);
-                const ms = diff - (hours * 60 * 60 * 1000 + mins * 60 * 1000 + seconds * 1000);
-                countdown.innerText = `${hours}:${mins}:${seconds}.${ms < 100 ? '0'+ms : ms}`;
-            },100)
-        </script>
-    </body>
+        setInterval(() => {
+            const current = new Date().getTime();
+            const diff = expected - current
+            const hours = Math.floor(diff / 1000 / 60 / 60);
+            const mins = Math.floor(diff / 1000 / 60) - (hours * 60);
+            const seconds = Math.floor(diff / 1000) - (hours * 60 * 60 + mins * 60);
+            const ms = diff - (hours * 60 * 60 * 1000 + mins * 60 * 1000 + seconds * 1000);
+            countdown.innerText = `${hours}:${mins}:${seconds}.${ms < 100 ? '0' + ms : ms}`;
+        }, 100)
+
+        const music = document.getElementById("music");
+        const button = document.getElementById("button");
+        let isMute = true;
+        function musicToogle() {
+            if (isMute) {
+                button.innerHTML = 'volume_off'
+                if (music.muted) {
+                    music.muted = false;
+                } else {
+                    music.play();
+                }
+            } else {
+                button.innerHTML = 'volume_up'
+                music.muted = true;
+            }
+
+            isMute = !isMute
+        }
+
+    </script>
+</body>
+
 </html>
