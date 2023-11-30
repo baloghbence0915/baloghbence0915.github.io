@@ -45,7 +45,7 @@
 
 <body>
     <div>
-        <div id="countdown"></div>
+        <div id="countdown">00:00:00.000</div>
         <div class="buttons">
             <button onclick="musicToogle()">
                 <span id="button" class="button material-symbols-outlined" onclick>
@@ -65,7 +65,7 @@
             const mins = Math.floor(diff / 1000 / 60) - (hours * 60);
             const seconds = Math.floor(diff / 1000) - (hours * 60 * 60 + mins * 60);
             const ms = diff - (hours * 60 * 60 * 1000 + mins * 60 * 1000 + seconds * 1000);
-            countdown.innerText = `${hours}:${mins}:${seconds}.${ms < 100 ? '0' + ms : ms}`;
+            // countdown.innerText = `${hours}:${mins}:${seconds}.${ms < 100 ? '0' + ms : ms}`;
         }, 100)
 
         const music = document.getElementById("music");
@@ -74,6 +74,7 @@
         function musicToogle() {
             if (isMute) {
                 button.innerHTML = 'volume_off'
+                button.disabled = true;
                 if (music.muted) {
                     music.muted = false;
                 } else {
