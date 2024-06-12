@@ -22,72 +22,142 @@
             justify-content: center;
         }
 
-        .buttons {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #countdown {
-            font-size: 200px;
-        }
-
-        .button {
+        .counter {
             font-size: 100px;
         }
     </style>
 </head>
 
-<audio loop id="music">
-    <source src="music.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
-
 <body>
     <div>
-        <div id="countdown">00:00:00.000</div>
-        <div class="buttons">
-            <button onclick="musicToogle()">
-                <span id="button" class="button material-symbols-outlined" onclick>
-                    volume_up
-                </span>
-            </button>
-        </div>
+        <div> Hours before leave:</div>
+        <div id="c_1" class="counter"></div>
+        <div> Working hours before leave:</div>
+        <div id="c_2" class="counter"></div>
+
     </div>
     <script>
-        const countdown = document.getElementById('countdown')
-        const expected = new Date('Thu Nov 30 2023 17:00:00 GMT+0100 (Central European Standard Time)').getTime();
+        const defaultCounter = '00:00:00.000';
+        const workdayStartHour = 8;
+        const workdayEndHour = 16;
+        const workdayShortEndHour = 12;
+        const workDays = [1, 2, 3, 4];
+        const workShortDays = [5];
+        const days = [1, 2, 3, 4, 5, 6, 0]
 
-        setInterval(() => {
-            const current = new Date().getTime();
-            const diff = expected - current
-            const hours = Math.floor(diff / 1000 / 60 / 60);
-            const mins = Math.floor(diff / 1000 / 60) - (hours * 60);
-            const seconds = Math.floor(diff / 1000) - (hours * 60 * 60 + mins * 60);
-            const ms = diff - (hours * 60 * 60 * 1000 + mins * 60 * 1000 + seconds * 1000);
-            // countdown.innerText = `${hours}:${mins}:${seconds}.${ms < 100 ? '0' + ms : ms}`;
-        }, 100)
+        const date = 'Thu Jun 21 2024 16:00:30 GMT+0200 (Central European Standard Time)'
 
-        const music = document.getElementById("music");
-        const button = document.getElementById("button");
-        let isMute = true;
-        function musicToogle() {
-            if (isMute) {
-                button.innerHTML = 'volume_off'
-                button.disabled = true;
-                if (music.muted) {
-                    music.muted = false;
+        startCountdown('c_1', date);
+        startCountdown('c_2', date, true);
+
+        function startCountdown(elementId, date, onlyWorkdays) {
+            const countdown = document.getElementById(elementId);
+            countdown.innerText = defaultCounter;
+
+
+            setInterval(() => {
+                const diff = getDiff(date, onlyWorkdays);
+
+                if (diff && diff >= 0) {
+                    const hours = Math.floor(diff / 1000 / 60 / 60);
+                    const mins = Math.floor(diff / 1000 / 60) - (hours * 60);
+                    const seconds = (diff / 1000) - (hours * 60 * 60 + mins * 60);
+                    countdown.innerText = `${formatNumber(hours, 2, 0)}:${formatNumber(mins, 2, 0)}:${formatNumber(seconds, 2, 3)}`;
                 } else {
-                    music.play();
+                    countdown.innerText = defaultCounter;
                 }
-            } else {
-                button.innerHTML = 'volume_up'
-                music.muted = true;
-            }
 
-            isMute = !isMute
+            }, 10);
         }
 
+        function getDiff(date, onlyWorkdays) {
+
+            if (onlyWorkdays) {
+                const expected = new Date(date);
+                const expectedTime = new Date(date);
+                expected.setHours(0);
+                expected.setMinutes(0);
+                expected.setSeconds(0);
+                expected.setMilliseconds(0);
+
+                const current = new Date();
+                const currentTime = current.getTime();
+                const currentDay = current.getDay();
+
+                let diff = 0;
+
+                if (workDays.includes(currentDay) || workShortDays.includes(currentDay)) {
+                    const bottomDate = new Date(current);
+                    bottomDate.setHours(workdayStartHour);
+                    bottomDate.setMinutes(0);
+                    bottomDate.setSeconds(0);
+                    bottomDate.setMilliseconds(0);
+                    const bottomDateTime = bottomDate.getTime();
+
+                    const topDate = new Date(current);
+                    topDate.setHours(workShortDays.includes(currentDay) ? workdayShortEndHour : workdayEndHour);
+                    topDate.setMinutes(0);
+                    topDate.setSeconds(0);
+                    topDate.setMilliseconds(0);
+                    const topDateTime = topDate.getTime();
+
+                    if (bottomDateTime < currentTime && topDateTime > currentTime) {
+                        diff = (topDateTime - bottomDateTime) - (currentTime - bottomDateTime);
+                    }
+                }
+
+                current.setHours(0);
+                current.setMinutes(0);
+                current.setSeconds(0);
+                current.setMilliseconds(0);
+
+                const diffDayMs = expected.getTime() - current.getTime();
+                let diffDay = Math.trunc(diffDayMs / 1000 / 60 / 60 / 24);
+
+                let hours = 0;
+                let currentDayTmp = currentDay;
+                while (diffDay > 0) {
+                    const currentDayIndex = days.findIndex((day) => day === currentDayTmp);
+                    const nextDayIndex = currentDayIndex === (days.length - 1) ? 0 : currentDayIndex + 1;
+                    const nextDay = days[nextDayIndex];
+
+                    if (workDays.includes(nextDay)) {
+                        hours += workdayEndHour - workdayStartHour;
+                    } else if (workShortDays.includes(nextDay)) {
+                        hours += workdayShortEndHour - workdayStartHour;
+                    }
+
+                    currentDayTmp = nextDay;
+
+                    diffDay--;
+                }
+
+
+                return diff + (hours * 1000 * 60 * 60);
+
+            }
+
+            const expected = new Date(date).getTime();
+            const current = new Date().getTime();
+            const diff = expected - current;
+
+            return diff;
+        }
+
+
+        function formatNumber(n, integer, fraction) {
+            const integerPart = Math.trunc(n);
+            const order = String(integerPart).replace('-', '').length;
+            const missingIntegers = integer - order;
+            const prefix = missingIntegers > 0 ? Array(missingIntegers).fill(null).map(() => '0').join('') : '';
+
+            const fractionalPart = Math.trunc((n % 1) * (10 ** fraction));
+            const fractionalOrder = String(fractionalPart).replace('-', '').length;
+            const missingFractionalIntegers = fraction - fractionalOrder;
+            const fractionPrefix = missingFractionalIntegers > 0 ? Array(missingFractionalIntegers).fill(null).map(() => '0').join('') : '';
+
+            return prefix + integerPart + (fraction > 0 ? '.' + fractionPrefix + fractionalPart : '')
+        }
     </script>
 </body>
 
