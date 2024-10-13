@@ -1,0 +1,58 @@
+{
+  "TITLE": "Prop calculator",
+  "LANGUAGES": {
+    "HUNGARIAN": "Magyar",
+    "ENGLISH": "English"
+  },
+  "PARAM_PLACEHOLDERS": {
+    "D1": "D1: diameter",
+    "D2": "D2: diameter",
+    "B1": "B1: number of blades",
+    "B2": "B2: number of blades",
+    "P1": "P1: power",
+    "P2": "P2: power",
+    "H1": "H1: pitch",
+    "H2": "H2: pitch"
+  },
+  "PARAM_DESCRIPTIONS": {
+    "D1": "diameter of original propeller",
+    "D2": "diameter of target propeller",
+    "B1": "number of blades of original propeller",
+    "B2": "number of blades of target propeller",
+    "H1": "pitch of original propeller",
+    "H2": "pitch of target propeller",
+    "P1": "output power in percentage (defined as 100%)",
+    "P2": "new output power in percentage while the same RPM is maintained"
+  },
+  "OPERATION_TYPES": "Operation types",
+  "SELECT_OPERATION": "Select operation",
+  "OPERATIONS": {
+    "BLADE_CONVERSION": {
+      "HEADER": "Propeller diameter conversion by number of blades",
+      "PARAGRAPH_1": "Calculates the diameter of a propeller with the same power consumption and forward airspeed than the reference propeller but with different number of blades.",
+      "PARAGRAPH_2": "Useful if you want to find the propeller diameter with different number of blades than your reference propeller, for the same motor."
+    },
+    "POWER_BY_BLADES": {
+      "HEADER": "Power consumption change by blade number change",
+      "PARAGRAPH_1": "Calculates change in power consumption by changing number of blades.",
+      "PARAGRAPH_2": "Useful if you want to see how much extra/less power needed if you apply a propeller with same pitch, diameter and shape but with different number of blades than your reference propeller."
+    },
+    "POWER_BY_DIAMETER": {
+      "HEADER": "Power consumption change by diameter change",
+      "PARAGRAPH_1": "Calculates change in power consumption by changing propeller diameter.",
+      "PARAGRAPH_2": "Useful if you want to see how much extra/less power needed if you apply a propeller with different diameter than your reference propeller."
+    },
+    "POWER_BY_H_D_RATIO": {
+      "HEADER": "Power consumption change by pitch change",
+      "PARAGRAPH_1": "Calculates change in power consumption based on changing pitch/diameter ratio.",
+      "PARAGRAPH_2": "Useful if you want to see how much extra/less power needed if you apply a propeller with different pitch, than your reference propeller."
+    }
+  },
+  "FOOTER": {
+    "NO_RESPONSIBILITY_DISCLAIMER": "No responsibility is taken for the calculations and errors of the software. Use it only on your own risk.",
+    "SOURCE": "Source",
+    "CONTACT": "Contact"
+  },
+  "REQUIRED_FIELD": "This field is required",
+  "NEXT_BUTTON": "Next"
+}

@@ -1,0 +1,58 @@
+{
+  "TITLE": "Légcsavar kalkulátor",
+  "LANGUAGES": {
+    "HUNGARIAN": "Magyar",
+    "ENGLISH": "English"
+  },
+  "PARAM_PLACEHOLDERS": {
+    "D1": "D1: átmérő",
+    "D2": "D2: átmérő",
+    "B1": "B1: tollak száma",
+    "B2": "B2: tollak száma",
+    "P1": "P1: teljesítmény",
+    "P2": "P2: teljesítmény",
+    "H1": "H1: emelkedés",
+    "H2": "H2: emelkedés"
+  },
+  "PARAM_DESCRIPTIONS": {
+    "D1": "eredeti légcsavar átmérője",
+    "D2": "cél légcsavar átmérője",
+    "B1": "eredeti légcsavar tollainak száma",
+    "B2": "cél légcsavar tollainak száma",
+    "H1": "eredeti légcsavar emelkedése",
+    "H2": "cél légcsavar emelkedése",
+    "P1": "teljesítmény, százalékban kifejezve (kezdetileg: 100%)",
+    "P2": "új kimeneti teljesítmény, a fordulatszám megtartása mellett"
+  },
+  "OPERATION_TYPES": "Kalkulációs módok",
+  "SELECT_OPERATION": "Válassz módot",
+  "OPERATIONS": {
+    "BLADE_CONVERSION": {
+      "HEADER": "Légcsavar átmérő átváltása tollak száma alapján",
+      "PARAGRAPH_1": "Átváltja a légcsavar átmérőjét a tollak számának megfelelően, így több/kevesebb tollú légcsavar szerelhető fel a teljesítmény és a légsebesség megtartása mellett.",
+      "PARAGRAPH_2": "Hasznos ha szeretnél eltérő toll számú légcsavart felszerelni adott motorra."
+    },
+    "POWER_BY_BLADES": {
+      "HEADER": "Teljesítmény kalkuláció toll szám változása esetén",
+      "PARAGRAPH_1": "Teljesítmény kalkuláció a tollak számának változásával.",
+      "PARAGRAPH_2": "Hasznos ha szeretnél egy kalkulációt arra, hogyan változik a teljesítmény a légcsavar tollak számának változásával, megegyező légcsavar emelkedés, átmérő és forma alapján, viszonyításként az eredeti légcsavarhoz."
+    },
+    "POWER_BY_DIAMETER": {
+      "HEADER": "Teljesítmény kalkuláció átmérő változása esetén",
+      "PARAGRAPH_1": "Teljesítmény kalkuláció a légcsavar átmérő változásával.",
+      "PARAGRAPH_2": "Hasznos ha szeretnél egy kalkulációt arra, hogyan változik a teljesítmény a légcsavar átmérőjének változásával, viszonyításként az eredeti légcsavarhoz."
+    },
+    "POWER_BY_H_D_RATIO": {
+      "HEADER": "Teljesítmény kalkuláció légcsavar emelkedés változás esetén",
+      "PARAGRAPH_1": "Teljesítmény kalkuláció a légcsavar emelkedés/átmérő arány változásával.",
+      "PARAGRAPH_2": "Hasznos ha szeretnél egy kalkulációt arra, hogyan változik a teljesítmény a légcsavar emelkedésének változásával, viszonyításként az eredeti légcsavarhoz."
+    }
+  },
+  "FOOTER": {
+    "NO_RESPONSIBILITY_DISCLAIMER": "Semmiféle felelősségvállalás nem biztosított ezen szoftver és hibái esetén. Csak a saját felelőségedre használd.",
+    "SOURCE": "Forrás",
+    "CONTACT": "Elérhetőség "
+  },
+  "REQUIRED_FIELD": "A mező kitöltése kötelező",
+  "NEXT_BUTTON": "Tovább"
+}
